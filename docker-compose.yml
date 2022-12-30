@@ -1,0 +1,72 @@
+version: '3.7'
+services:
+  php:
+    image: bscheshir/php:7.4.3-fpm-alpine-4yii2
+    restart: always
+    volumes:
+      - ./php-data:/var/www/html #php-data
+      - ~/.composer/cache:/root/.composer/cache
+    depends_on:
+      - db
+    environment:
+      TZ: Europe/Moscow
+      XDEBUG_CONFIG: "remote_enable=Off remote_autostart=Off"
+  php-supervisor: # for workers
+    image: bscheshir/php:7.4.3-fpm-alpine-4yii2-supervisor
+    restart: always
+    volumes:
+      - ./php-data:/var/www/html #php-data
+      - ./supervisor-conf:/etc/supervisor/conf.d
+      - ./supervisor-logs:/var/log/supervisor
+    depends_on:
+      - db
+    environment:
+      TZ: Europe/Moscow
+      XDEBUG_CONFIG: "remote_enable=Off remote_autostart=Off"
+  redis:
+    image: redis:5.0.7-alpine
+    restart: always
+    command: redis-server /etc/redis/conf.d/redis.conf --requirepass yii2advancedredis
+    ports:
+      - "6379"
+    volumes:
+      - ./redis-data:/data
+      - ./redis-conf:/etc/redis/conf.d
+    depends_on:
+      - php-supervisor
+    environment:
+      TZ: Europe/Moscow
+  nginx:
+    image: nginx:1.17.8-alpine
+    restart: always
+    depends_on:
+      - php
+    volumes:
+      - ./php-data:/var/www/html #php-data
+      - ./nginx-conf:/etc/nginx/conf.d #nginx-conf
+      - ./nginx-logs:/var/log/nginx #nginx-logs
+    networks:
+      default:
+      nginx-proxy:
+        aliases:
+         - backend.nginx
+         - frontend.nginx
+    environment:
+      TZ: Europe/Moscow
+  db:
+    image: mysql:8.0.19
+    entrypoint:
+      - '/entrypoint.sh'
+      - '--default-authentication-plugin=mysql_native_password' # https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_default_authentication_plugin
+    restart: always
+    volumes:
+      - ./mysql-data/db:/var/lib/mysql #mysql-data
+    environment:
+      TZ: Europe/Moscow
+      MYSQL_ROOT_PASSWORD: yii2advanced
+      MYSQL_DATABASE: yii2advanced
+      MYSQL_USER: yii2advanced
+      MYSQL_PASSWORD: yii2advanced
+networks:
+  nginx-proxy:
+    external: true # docker network create nginx-proxy

@@ -1,0 +1,43 @@
+# phpstorm project files
+.idea
+
+# netbeans project files
+nbproject
+.vscode
+# zend studio for eclipse project files
+.buildpath
+.project
+.settings
+
+# windows thumbnail cache
+Thumbs.db
+
+# Mac DS_Store Files
+.DS_Store
+
+# nginx logs dir
+/nginx-logs
+
+# supervisor logs dir
+/supervisor-logs
+
+# redis data dir
+/redis-data
+# redis test data dir
+/redis-data-test
+
+# mysql data dir
+/mysql-data
+# mysql test data dir
+/mysql-data-test
+
+# mysql-proxy logs dir
+/mysql-proxy-logs
+
+# IDE autocomplite for the codeception classes (within core and vendors)
+.codecept
+
+# docker-compose local config
+.env
+docker-codeception-run/.env
+docker-run/.env
