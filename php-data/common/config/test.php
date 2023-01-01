@@ -5,9 +5,9 @@ return [
     'components' => [
         'db' => [
         'class' => 'yii\db\Connection',
-        'dsn' => 'mysql:host=172.22.0.1;dbname=yii2advanced',
+        'dsn' => 'mysql:host=db;port=3306;dbname=yii2advanced',
         'username' => 'yii2advanced',
-        'password' => 'yii2advanced',
+        'password' => 'secret',
         'charset' => 'utf8',
         ],
         'user' => [

@@ -89,7 +89,7 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=yii2advancedrbac',
+            'dsn' => 'mysql:host=db;dbname=yii2advancedrbac',
             'username' => 'yii2advancedrbac',
             'password' => 'enter-password-here',
             'charset' => 'utf8',
