@@ -29,8 +29,8 @@ jobs:
         run: |
           echo docker -v
           echo docker-compose -v
-          docker-compose --file docker-run/docker-compose.yml build
-          docker-compose --file docker-run/docker-compose.yml run sut
+          docker-compose --file docker-run/docker-compose.yml build up -d
+           echo docker -v
         #   docker-compose --file docker-codeception-run/docker-compose.test.yml build
          #  docker-compose --file docker-codeception-run/docker-compose.test.yml run sut
 
