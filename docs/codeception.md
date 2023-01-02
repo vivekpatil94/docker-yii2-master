@@ -49,7 +49,7 @@ if ((ip2long(@$_SERVER['REMOTE_ADDR']) ^ ip2long(@$_SERVER['SERVER_ADDR'])) >= 2
         'components' => [
             'db' => [
                 // Uncomment this line if your run Codeception test without Docker
-                // 'dsn' => 'mysql:host=localhost;dbname=yii2advanced_test',
+                // 'dsn' => 'mysql:host=db;dbname=yii2advanced_test',
             ]
         ],
     ]
